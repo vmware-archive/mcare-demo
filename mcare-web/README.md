@@ -3,7 +3,7 @@ vca-callcenterapp-demo
 
 A basic Call Center Ticket Management App 
 
-![WebSnapshot](https://github.com/rdbwebster/vca-callcenterapp-demo-docs/blob/master/resources/mCareWeb.png)
+![WebSnapshot](https://github.com/vmware/mcare-demo/blob/master/docs/resources/mCareWeb.png)
 
 The mCare Application supports both Web and ios mobile clients.
 A REST API is available to support extension to other client types
@@ -19,7 +19,7 @@ Get the App
 ```
 mkdir mcare
 cd mcare
-git clone https://github.com/rdbwebster/vca-callcenterapp-demo
+git clone https://github.com/vmware/mcare-demo
 ```
 
 ```
