@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/KCSCustomEndpoints.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/KCSCustomEndpoints</TokenIdentifier>
+			<Abstract type="html">Class to wrap Custom Business Logic Endpoints.</Abstract>
+			<DeclaredIn>KCSCustomEndpoints.h</DeclaredIn>
+			
+			<NodeRef refid="30"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/KCSCustomEndpoints/callEndpoint:params:completionBlock:</TokenIdentifier>
+			<Abstract type="html">Call a custom endpoint</Abstract>
+			<DeclaredIn>KCSCustomEndpoints.h</DeclaredIn>			
+			
+			<Declaration>+ (void)callEndpoint:(NSString *)endpoint params:(NSDictionary *)params completionBlock:(void ( ^ ) ( id results , NSError *error ))completionBlock</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>endpoint</Name>
+					<Abstract type="html">the name of the custom endpoint</Abstract>
+				</Parameter><Parameter>
+					<Name>params</Name>
+					<Abstract type="html">the body paramaters to pass to the endpoint</Abstract>
+				</Parameter><Parameter>
+					<Name>completionBlock</Name>
+					<Abstract type="html">the response block. results will be the value returned by your business logic, and error will be non-nil if an error occurred.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/callEndpoint:params:completionBlock:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

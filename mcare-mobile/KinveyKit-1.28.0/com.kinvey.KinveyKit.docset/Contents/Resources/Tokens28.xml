@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/KCSClientConfiguration.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/KCSClientConfiguration</TokenIdentifier>
+			<Abstract type="html">Configuration wrapper for setting up a KCSClient. Configurations are adjustable at compile- or run-time. See the guides at http://devecenter.kinvey.com for how configurations work with app environments.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>
+			
+			<NodeRef refid="28"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KCSClientConfiguration/setAppKey:</TokenIdentifier>
+			<Abstract type="html">The application identifier</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSString *appKey</Declaration>
+			
+			
+			<Anchor>//api/name/appKey</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KCSClientConfiguration/appKey</TokenIdentifier>
+			<Abstract type="html">The application identifier</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSString *appKey</Declaration>
+			
+			
+			<Anchor>//api/name/appKey</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KCSClientConfiguration/appKey</TokenIdentifier>
+			<Abstract type="html">The application identifier</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSString *appKey</Declaration>
+			
+			
+			<Anchor>//api/name/appKey</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KCSClientConfiguration/setAppSecret:</TokenIdentifier>
+			<Abstract type="html">The application secret</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSString *appSecret</Declaration>
+			
+			
+			<Anchor>//api/name/appSecret</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KCSClientConfiguration/appSecret</TokenIdentifier>
+			<Abstract type="html">The application secret</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSString *appSecret</Declaration>
+			
+			
+			<Anchor>//api/name/appSecret</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KCSClientConfiguration/appSecret</TokenIdentifier>
+			<Abstract type="html">The application secret</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSString *appSecret</Declaration>
+			
+			
+			<Anchor>//api/name/appSecret</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KCSClientConfiguration/setOptions:</TokenIdentifier>
+			<Abstract type="html">A dictionary of options.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSDictionary *options</Declaration>
+			
+			
+			<Anchor>//api/name/options</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/KCSClientConfiguration/options</TokenIdentifier>
+			<Abstract type="html">A dictionary of options.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSDictionary *options</Declaration>
+			
+			
+			<Anchor>//api/name/options</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/KCSClientConfiguration/options</TokenIdentifier>
+			<Abstract type="html">A dictionary of options.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy) NSDictionary *options</Declaration>
+			
+			
+			<Anchor>//api/name/options</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/KCSClientConfiguration/configurationWithAppKey:secret:</TokenIdentifier>
+			<Abstract type="html">Basic configuration with an app key and secret, no options. Uses the default options.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)configurationWithAppKey:(NSString *)appKey secret:(NSString *)appSecret</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>appKey</Name>
+					<Abstract type="html">the App Key for a specific app&apos;s environment.</Abstract>
+				</Parameter><Parameter>
+					<Name>appSecret</Name>
+					<Abstract type="html">the matching App Secret for the environment.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">a configuration with the default options</Abstract></ReturnValue>
+			<Anchor>//api/name/configurationWithAppKey:secret:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/KCSClientConfiguration/configurationWithAppKey:secret:options:</TokenIdentifier>
+			<Abstract type="html">Basic configuration with an app key and secret and options.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+	<RelatedTokens>
+		<TokenIdentifier>//apple_ref/occ/instp/KCSClientConfiguration/options</TokenIdentifier>
+		
+	</RelatedTokens>
+	
+			<Declaration>+ (instancetype)configurationWithAppKey:(NSString *)appKey secret:(NSString *)appSecret options:(NSDictionary *)options</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>appKey</Name>
+					<Abstract type="html">the App Key for a specific app&apos;s environment.</Abstract>
+				</Parameter><Parameter>
+					<Name>appSecret</Name>
+					<Abstract type="html">the matching App Secret for the environment.</Abstract>
+				</Parameter><Parameter>
+					<Name>options</Name>
+					<Abstract type="html">a dictionary of optional configuration.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">a configuration with the specified options</Abstract></ReturnValue>
+			<Anchor>//api/name/configurationWithAppKey:secret:options:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/KCSClientConfiguration/configurationFromPlist:</TokenIdentifier>
+			<Abstract type="html">Builds the configuration from the specified plist.</Abstract>
+			<DeclaredIn>KCSClientConfiguration.h</DeclaredIn>			
+			
+	<RelatedTokens>
+		<TokenIdentifier>//apple_ref/occ/instp/KCSClientConfiguration/options</TokenIdentifier>
+		
+	</RelatedTokens>
+	
+			<Declaration>+ (instancetype)configurationFromPlist:(NSString *)plistName</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>plistName</Name>
+					<Abstract type="html">the name of the plist.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">a configuartion loaded from the plis</Abstract></ReturnValue>
+			<Anchor>//api/name/configurationFromPlist:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

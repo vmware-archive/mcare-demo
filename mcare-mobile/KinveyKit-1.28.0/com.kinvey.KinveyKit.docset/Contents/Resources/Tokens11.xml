@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="docs/Documents/releasenotes/General/KinveyKit1190APIDiffs/KinveyKit1190APIDiffs.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/doc/KinveyKit1190APIDiffs</TokenIdentifier>
+			<Abstract type="html"> &lt;div class=&quot;diffReport&quot;&gt;&lt;h1&gt;KinveyKit 1.18.0 to KinveyKit 1.19.0 API Differences&lt;/h1&gt;&lt;h2&gt;KinveyKit&lt;/h2&gt;             No API Changes For This Release             &lt;/div&gt;</Abstract>
+			<DeclaredIn>KinveyKit1190APIDiffs-template.html</DeclaredIn>
+			
+			<NodeRef refid="11"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

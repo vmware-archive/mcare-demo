@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="docs/Documents/releasenotes/General/KinveyKit190APIDiffs/KinveyKit190APIDiffs.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/doc/KinveyKit190APIDiffs</TokenIdentifier>
+			<Abstract type="html"> &lt;div class=&quot;diffReport&quot;&gt;&lt;h1&gt;KinveyKit 1.8.0 to KinveyKit 1.9.0 API Differences&lt;/h1&gt;&lt;h2&gt;KinveyKit&lt;/h2&gt;&lt;div class=&quot;diffReport headerFile&quot;&gt;&lt;div class=&quot;diffReport headerName&quot;&gt;KCSPush.h&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; - [KCSPush onLoadHelper:error:]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;diffReport headerFile&quot;&gt;&lt;div class=&quot;diffReport headerName&quot;&gt;&lt;span class=&quot;diffReport added&quot;&gt;KCSUniqueNumber.h&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; - [KCSUniqueNumber setValue:]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; - [KCSUniqueNumber setSequenceId:]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; + [KCSUniqueNumber defaultSequence]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; - [KCSUniqueNumber reset]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;diffReport headerFile&quot;&gt;&lt;div class=&quot;diffReport headerName&quot;&gt;KCSUser.h&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; + [KCSUser loginWithWithSocialIdentity:accessDictionary:withCompletionBlock:]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; + [KCSUser canUseNativeTwitter]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;added&quot;&gt;&lt;div class=&quot;diffReport symbolName&quot;&gt;&lt;span class=&quot;diffReport diffStatus added&quot;&gt;Added&lt;/span&gt; + [KCSUser getAccessDictionaryFromTwitterFromPrimaryAccount:]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</Abstract>
+			<DeclaredIn>KinveyKit190APIDiffs-template.html</DeclaredIn>
+			
+			<NodeRef refid="23"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

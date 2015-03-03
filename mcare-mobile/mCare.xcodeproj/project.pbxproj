@@ -18,6 +18,9 @@
 		DD71B52A1A3E0B1E006AE5E9 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD71B5291A3E0B1E006AE5E9 /* Customer.m */; };
 		DD71B5331A3E0F33006AE5E9 /* Builder.m in Sources */ = {isa = PBXBuildFile; fileRef = DD71B5321A3E0F33006AE5E9 /* Builder.m */; };
 		DD71B5391A3E18B4006AE5E9 /* CustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD71B5381A3E18B4006AE5E9 /* CustomerViewController.m */; };
+		DD7AAF711AA65B9E00ECDB5A /* com.kinvey.KinveyKit.docset in Resources */ = {isa = PBXBuildFile; fileRef = DD7AAF6E1AA65B9E00ECDB5A /* com.kinvey.KinveyKit.docset */; };
+		DD7AAF721AA65B9E00ECDB5A /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7AAF6F1AA65B9E00ECDB5A /* KinveyKit.framework */; };
+		DD7AAF731AA65B9E00ECDB5A /* LICENSES in Resources */ = {isa = PBXBuildFile; fileRef = DD7AAF701AA65B9E00ECDB5A /* LICENSES */; };
 		DDABCBBD1A3F890000FCB646 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = DDABCBBC1A3F890000FCB646 /* Ticket.m */; };
 		DDABCBEB1A40815800FCB646 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDABCBC11A40814100FCB646 /* Accounts.framework */; };
 		DDABCBEC1A40815E00FCB646 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDABCBD31A40814100FCB646 /* CoreGraphics.framework */; };
@@ -28,7 +31,6 @@
 		DDABCBF51A40819E00FCB646 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDABCBF41A40819E00FCB646 /* Social.framework */; };
 		DDABCBF71A4081A900FCB646 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDABCBF61A4081A900FCB646 /* SystemConfiguration.framework */; };
 		DDABCBFA1A40934B00FCB646 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDABCBF91A40934B00FCB646 /* LoginViewController.m */; };
-		DDABCBFC1A40A43800FCB646 /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDABCBFB1A40A43800FCB646 /* KinveyKit.framework */; };
 		DDABCBFE1A40BB6600FCB646 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = DDABCBFD1A40BB6600FCB646 /* User.m */; };
 		DDABCCEE1A45D8FC00FCB646 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = DDABCCED1A45D8FC00FCB646 /* Comment.m */; };
 		DDABCCF71A51CBA700FCB646 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDABCCF61A51CBA700FCB646 /* CommentViewController.m */; };
@@ -71,6 +73,9 @@
 		DD71B5341A3E0FC3006AE5E9 /* Builder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Builder.h; sourceTree = "<group>"; };
 		DD71B5381A3E18B4006AE5E9 /* CustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerViewController.m; sourceTree = "<group>"; };
 		DD71B53A1A3E18CC006AE5E9 /* CustomerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerViewController.h; sourceTree = "<group>"; };
+		DD7AAF6E1AA65B9E00ECDB5A /* com.kinvey.KinveyKit.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = com.kinvey.KinveyKit.docset; sourceTree = "<group>"; };
+		DD7AAF6F1AA65B9E00ECDB5A /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
+		DD7AAF701AA65B9E00ECDB5A /* LICENSES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSES; sourceTree = "<group>"; };
 		DDABCBBC1A3F890000FCB646 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		DDABCBC11A40814100FCB646 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		DDABCBD21A40814100FCB646 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -83,7 +88,6 @@
 		DDABCBF61A4081A900FCB646 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DDABCBF81A40934B00FCB646 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		DDABCBF91A40934B00FCB646 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		DDABCBFB1A40A43800FCB646 /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KinveyKit.framework; path = "../../Downloads/KinveyKit-1.28.0/KinveyKit.framework"; sourceTree = "<group>"; };
 		DDABCBFD1A40BB6600FCB646 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		DDABCCEC1A45D8FB00FCB646 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		DDABCCED1A45D8FC00FCB646 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
@@ -102,7 +106,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDABCBFC1A40A43800FCB646 /* KinveyKit.framework in Frameworks */,
 				DDABCBF71A4081A900FCB646 /* SystemConfiguration.framework in Frameworks */,
 				DDABCBF51A40819E00FCB646 /* Social.framework in Frameworks */,
 				DDABCBF31A40819800FCB646 /* Security.framework in Frameworks */,
@@ -110,6 +113,7 @@
 				DDABCBEF1A40817A00FCB646 /* libsqlite3.dylib in Frameworks */,
 				DDABCBED1A40816900FCB646 /* CoreLocation.framework in Frameworks */,
 				DDABCBEC1A40815E00FCB646 /* CoreGraphics.framework in Frameworks */,
+				DD7AAF721AA65B9E00ECDB5A /* KinveyKit.framework in Frameworks */,
 				DDABCBEB1A40815800FCB646 /* Accounts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				DD6C72ED1A784508005A8689 /* Settings.bundle */,
-				DDABCBFB1A40A43800FCB646 /* KinveyKit.framework */,
 				DDABCBF61A4081A900FCB646 /* SystemConfiguration.framework */,
 				DDABCBF41A40819E00FCB646 /* Social.framework */,
 				DDABCBF21A40819800FCB646 /* Security.framework */,
@@ -141,6 +144,7 @@
 				DD71B4DD1A3DC25C006AE5E9 /* mCare */,
 				DD71B4F71A3DC25C006AE5E9 /* mCareTests */,
 				DD71B4DC1A3DC25C006AE5E9 /* Products */,
+				DD7AAF6D1AA65B9E00ECDB5A /* KinveyKit-1.28.0 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +219,16 @@
 				DD71B4F91A3DC25C006AE5E9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD7AAF6D1AA65B9E00ECDB5A /* KinveyKit-1.28.0 */ = {
+			isa = PBXGroup;
+			children = (
+				DD7AAF6E1AA65B9E00ECDB5A /* com.kinvey.KinveyKit.docset */,
+				DD7AAF6F1AA65B9E00ECDB5A /* KinveyKit.framework */,
+				DD7AAF701AA65B9E00ECDB5A /* LICENSES */,
+			);
+			path = "KinveyKit-1.28.0";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,9 +312,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD7AAF711AA65B9E00ECDB5A /* com.kinvey.KinveyKit.docset in Resources */,
 				DD6C72EE1A784508005A8689 /* Settings.bundle in Resources */,
 				DD71B4EA1A3DC25C006AE5E9 /* Main.storyboard in Resources */,
 				DD71B4EF1A3DC25C006AE5E9 /* LaunchScreen.xib in Resources */,
+				DD7AAF731AA65B9E00ECDB5A /* LICENSES in Resources */,
 				DD71B4EC1A3DC25C006AE5E9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +481,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/bwebster/Downloads/KinveyKit-1.28.0",
+					"$(PROJECT_DIR)/KinveyKit-1.28.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
@@ -485,6 +502,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/bwebster/Downloads/KinveyKit-1.28.0",
+					"$(PROJECT_DIR)/KinveyKit-1.28.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = mCare/Info.plist;

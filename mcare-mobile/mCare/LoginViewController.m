@@ -68,7 +68,7 @@
     NSInteger rc = [self authenticateUser:authString
                                   username:_loginField.text password:_passwordField.text];
     
-    if(rc == 302)
+    if(rc == 302 || rc == 200)
     {
         User* userObj = [self lookupUser:_loginField.text endpoint:_restUrl];
         appdelegate.user= userObj;
