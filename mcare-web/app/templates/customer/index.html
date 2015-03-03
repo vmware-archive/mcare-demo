@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% from 'common.html' import customer_detail %}
+
+{% block title %}
+Customers
+{%endblock title %}
+
+
+{% block main %}
+<div class="row">
+    {% for customer in customers %}
+       <div class="span12">
+           {{ customer_detail(customer, link_title=true, show_edit=false, show_Description=false) }}
+       </div>
+    {% else %}
+        <h3 class="span12">No customers.</h3>
+    {% endfor %}
+<div>
+{% endblock main %}
+

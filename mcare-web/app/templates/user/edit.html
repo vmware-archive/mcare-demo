@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% from 'common.html' import edit_field %}
+{% if request.endpoint.endswith('edit') %}
+  {% set title = 'Edit User' %} 
+{% else %} 
+  {% set title = 'Add User' %}
+{% endif %} 
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block page_content %}
+<div class="row">
+  <div class="customer-edit well offset2 span8">
+
+    {% if request.endpoint.endswith('edit') %}
+      <form method="post" action=" {{ url_for('user_edit', user_id=user.id ) }} " class="form-horizontal"> 
+    {% else %} 
+      <form method="post" action=" {{ url_for('user_create') }} " class="form-horizontal">
+    {% endif %} 
+ 
+     <legend>{{ title }}</legend>
+     {{form.hidden_tag()}}
+     {{ edit_field(form.uname, class="span3", placeholder="User Name") }}
+     {% if not request.endpoint.endswith('edit') %}
+     {{ edit_field(form.password, class="span3", placeholder="Password") }}
+     {% endif %} 
+     {{ edit_field(form.firstname, class="span3", placeholder="First Name") }}
+     {{ edit_field(form.lastname, class="span3", placeholder="Last Name") }}
+     {{ edit_field(form.email, class="span3", placeholder="Email") }}
+     {{ edit_field(form.phone, class="span3", placeholder="Phone") }}
+     {{ edit_field(form.kinveyuser, class="span3", placeholder="User Name") }}
+     {% if not request.endpoint.endswith('edit') %}
+     {{ edit_field(form.password, class="span3", placeholder="User Password") }}
+    {% endif %} 
+     <div class="form-actions">
+       <button type="submit" class="btn btn-default">Save</button>
+       or <a class="btn btn-default" href="{{ url_for('user_list') }}">Cancel</a>
+     </div>
+  </form>
+  </div>
+</div>
+{% endblock page_content %}

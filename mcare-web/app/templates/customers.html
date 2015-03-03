@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% from 'common.html' import customer_detail %}
+
+
+{% block head %}
+{{ super() }}
+
+<script type=text/javascript>
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
+</script>
+
+{% endblock %}
+
+
+{% block title %}
+<div class="page-header">
+    <h1>Customers</h1>
+</div>{% endblock %}
+
+
+
+{% block page_content %}
+
+
+<table class="table table-striped">	
+    <tr >
+             <th class="h4"> Name </th>
+             <th class="h4"> Street </th>
+             <th class="h4"> City </th>
+             <th class="h4"> State </th>
+         </tr>
+   
+    {% for customer in customers %}
+       
+          <tr class='clickableRow' href='{{ url_for('customer', customer_id=customer.id ) }}'>
+         {% if customer.cname %}
+          <td>
+           {{ customer.cname }}
+         </td>
+         {% endif %}
+          {% if customer.street %}
+               <td>
+           {{ customer.street }}
+         </td>
+         {% endif %}
+          {% if customer.city %}
+              <td>
+           {{ customer.city }}
+          </td>
+         {% endif %}
+          {% if customer.state %}
+                 <td>
+           {{ customer.state }}
+          </td>
+         {% endif %}
+          </tr>
+   
+
+    {% else %}
+      
+         <div class="row">
+           <h3 class="col-md-4"> No customers</h3>
+         </div>
+    {% endfor %}
+   
+</table>
+
+
+
+{% endblock %}
+

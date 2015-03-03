@@ -1,0 +1,161 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}mCare Services{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+<link href="/static/css/site.css" rel="stylesheet" media="screen">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+<style>
+      .content {
+        margin-top: 60px;
+      }
+
+      .inline-pad {
+        padding-left: 10px;
+      }
+
+      .edit-controls {
+        margin: 1em 0;
+      }
+</style>
+<script>
+      $(function() {
+        $(".delete-link").on("click", function() {
+          var delete_url = $(this).attr('data-delete-url');
+          var next_url = $(this).attr('data-delete-next-url')
+          $.ajax({
+            url: delete_url,
+            type: 'DELETE',
+            success: function(response) {
+              if (response.status == 'ok') {
+                window.location = next_url;
+              } else {
+                alert('Delete failed. ' + response.status)
+              }
+            }
+          });
+          return false;
+        });
+      });
+</script>
+
+
+{% endblock %}
+
+<!--- http://getbootstrap.com/components/#navbar  -->
+{% block navbar %}
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Customer Care</a>
+        </div>
+        <div class="navbar-collapse collapse">
+           
+            <ul class="nav navbar-nav">
+              
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+          </ul>
+           <ul class="nav navbar-nav">
+                <li><a href="/customers/">Customers</a></li>
+          </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="/tickets/">Tickets</a></li>
+          </ul>
+            {% if current_user.is_authenticated()  %}
+           <ul class="nav navbar-nav">
+                <li><a href="/admin">Admin</a></li>
+          </ul>
+            {% endif %}
+          <ul class="nav navbar-nav navbar-right">
+
+           <li>
+         
+             <form method="get" class="navbar-form navbar-left"  role="search" action="{{ url_for('search') }}">
+                <input type="text" class="form-control input-sm" name="ckey" placeholder="Name, Phone">
+                <input type="text" class="form-control input-sm" name="tkey" placeholder="Ticket Number">
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button> 
+             </form>
+           </li>
+
+            {% if current_user.is_authenticated() %}
+
+            <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span>Logout {{ current_user.uname }}  </a></li>
+              
+            {% endif %}
+      
+
+            {% if current_user.is_anonymous() %}
+
+            <li><a href="/register"> <span class="glyphicon glyphicon glyphicon-user"></span> Register</a></li>   
+            <li><a href="/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>    
+         
+            {% endif %}
+
+  
+
+        </ul>
+      </div>  <!-- Navbar collapse -->
+ </div> <!-- Navbar fluid-->
+</nav>   <!-- Navbar Inverse -->
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <!--     
+        <div class="container-fluid">
+            <div class="col-xs-2" >
+                  <div class="well well-blue">
+                  <h4>Search</h4>
+     
+            
+<div class="form-group">
+   <form method="get" action="{{ url_for('search') }}"
+ 
+    <label for="Search1">Customer</label>
+    <input type="text" class="form-control" name="ckey" placeholder="Name, Phone">
+    <input type="text" class="form-control" name="tkey" placeholder="Ticket Number">
+ 
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+ </div>
+
+                     
+                  </div>
+               </div>
+               -->
+            
+                   {% block page_content %}
+
+         
+                   {% endblock %}
+            
+    <!--       </div>
+        </div> -->
+  
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+
+
+
+{% endblock %}

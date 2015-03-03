@@ -1,0 +1,9 @@
+---
+applications:
+- name: customer-service
+  memory: 256M
+  command: python runApp.py
+  intances: 1
+  services:
+  - remote-mysql
+  timeout: 60

@@ -1,0 +1,132 @@
+
+{% extends 'base.html' %}
+
+ {% block title %}{{ ticket.tnumber }} or '(untitled)'{% endblock title %}
+
+{% block page_content  %}
+
+<h3> <a href="{{ url_for('customer', customer_id=ticket.customer.id) }}" > {{ ticket.customer.cname }} </a> </h3>
+<h3> Ticket:  {{ ticket.tnumber }} </h3>
+
+
+{% if ticket.customer.user.uname == current_user.uname  %}
+    <div class="form-actions" align="right">
+	
+                <div class="edit-controls">
+                 <span class="inline-pad"></span>
+                 <i <span class="glyphicon glyphicon-pencil"></span></i>
+                 <a href="{{ url_for('ticket_edit', ticket_id = ticket.id) }}">Edit</a>
+                 <span class="inline-pad"></span>
+                 <i> <span class="glyphicon glyphicon-trash"></span></i>
+                   <a class="delete-link" href="#" 
+                        data-delete-url="{{ url_for('ticket_delete', ticket_id = ticket.id) }}"
+                        data-delete-next-url="{{ url_for('customer', customer_id=ticket.customer.id)}}">Delete</a>
+                 <span class="inline-pad"></span>
+
+                 {% if follower_id is none  %}
+                    <i <span class="glyphicon glyphicon-star"></span></i>
+                    <a href="{{ url_for('follower_create', ticket_id = ticket.id) }}">Follow</a>
+                 {% else %}
+                 <i <span class="glyphicon glyphicon glyphicon-star-empty"></span></i>
+                     <a class="delete-link" href="#" 
+                        data-delete-url="{{ url_for('follower_delete', id = follower_id) }}"
+                        data-delete-next-url="{{ url_for('ticket', ticket_id=ticket.id) }}">Unfollow</a>
+              
+                 {% endif %}
+                	</div>
+    </div>
+ {% endif %} 
+
+  <table class="table">
+  	 <thead>
+      <tr>
+         <th class="h4 col-md-2">Detail</th>
+         <th class="h4 col-md-6">Description</th>
+         <th class="h4 col-md-4"></th>
+      </tr>
+    </thead>
+  <tbody>
+
+    <tr>
+      <td> <label>Ticket Number:</label> </td>
+      <td>  {{ ticket.tnumber }}         </td>   
+    </tr>
+
+    <tr>
+      <td> <label>Type:</label>   </td>
+      <td>  {{ ticket.ttype }}   </td>   
+    </tr>
+        
+    <tr>
+      <td> <label>Create:</label>  </td>
+      <td> {{ ticket.timestamp }}  </td>   
+    </tr>
+
+    <tr>
+      <td> <label>Last Modified:</label>  </td>
+      <td> {{ ticket.modified_timestamp }}  </td>   
+    </tr>
+
+
+    <tr>
+      <td> <label>State:</label> </td>
+      <td> {{ ticket.tstate }}   </td>   
+    </tr>
+    <tr>
+    <td> <label>Contact Phone</label>  </td>
+    <td> {{ ticket.phone }}         </td>   
+  </tr>
+    <tr>
+      <td> <label>Description:</label>  </td>
+      <td>  {{ ticket.body }}           </td>   
+    </tr>
+
+     <tr>
+      <td> <label>Priority:</label> </td>
+      <td> {{ lookup_priority_name(ticket.tpriority) }}   </td>   
+    </tr>
+
+   </tbody>
+  </table>
+
+ <h3> Comments </h3>
+ <div class="form-actions" align="right">
+      <i <span class="glyphicon glyphicon-plus"></span></i>
+      <a href="{{ url_for('comment_create', ticket_id=ticket.id) }}">Add Comment</a>
+   </div>
+
+<table class="table table-striped">	
+    <tr >
+           
+             <th class="h4"> Created </th>
+            <th class="h4"> Body </th> 
+             <th class="h4"> Contact </th>
+                    
+     </tr>
+   
+    {% for comment in comments %}  
+
+        
+          <td>
+            <a href="{{ url_for('comment_edit', comment_id=comment.id) }}"> {{ comment.timestamp }}</a>
+         </td>
+           <td>
+           {{ comment.body }}
+         </td>
+          <td>
+           {{ comment.user.email }}
+         </td>
+          
+         </tr>
+
+    {% else %}
+      
+        <tr>
+           <td class="col-md-4"> No comments</td>
+         </tr>
+    {% endfor %}
+
+</table>
+
+
+{% endblock page_content  %}

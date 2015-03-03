@@ -1,0 +1,109 @@
+
+{% macro edit_field(field, catch_kwargs=true) %}
+   <div class="control-group  {% if field.errors %} error {% endif %}">
+      {{ field.label(class="control-label") }}
+   <div class="controls">
+      {{ field(**kwargs) | safe }} 
+      {% if field.errors %}
+         {% for error in field.errors %}
+            <span class="help-inline">{{ error }} </span>
+         {% endfor %}
+      {% endif %}
+   </div>
+   </div>
+{% endmacro %} 
+
+{% macro customer_detail(customer, link_title=false, show_edit=true) %}
+<div class="customer-detail">
+{% if link_title %}
+     <h3><a href="{{ url_for('customer_detail', customer_id=customer.id) }}">{{ customer.cname or '(untitled)' }}</a></h3>
+ {% else %}
+    <h3> {{ customer.cname or '(untitled)' }} </h3>
+{% endif %}
+
+   
+         <address>
+          {% if customer.street %}
+             
+           {{ customer.street }}
+         
+         {% endif %}
+          {% if customer.city %}
+          
+           {{ customer.city }}
+          
+         {% endif %}
+          {% if customer.state %}
+               
+           {{ customer.state }}
+          
+         {% endif %}
+
+          {% if customer.email %}
+               
+           {{ customer.email }}
+          
+         {% endif %}
+       </address>
+       
+      
+{% endmacro %}
+
+
+{% macro ticket_detail(ticket) %}
+
+
+    {% if lookup_priority_name(ticket.tpriority) == 'High' and ticket.tstate == 'OPEN' %}
+    <tr class="danger">
+     {% else %} 
+    <tr>
+    {% endif %}
+      
+          <td>
+           <a href=" {{ url_for('ticket', ticket_id=ticket.id) }}">  {{ ticket.tnumber|string }} </a>
+         </td>
+          <td>
+           <a href=" {{ url_for('customer', customer_id=ticket.customer_id ) }}">  {{ ticket.customer.cname }} </a>
+         </td>
+          <td>
+           {{ ticket.ttype }}
+         </td>
+          <td>
+           {{ ticket.body }}
+          </td>
+          <td>
+           {{ ticket.timestamp }}
+          </td>
+          <td>
+           {{ ticket.tstate }}
+          </td>
+            <td>
+           {{ lookup_priority_name(ticket.tpriority) }}
+          </td>
+        
+    </tr>
+
+{% endmacro %}
+
+
+{% macro user_detail(user, link_title=false, show_edit=true) %}
+  
+      
+          <td>
+            {{ user.uname }} 
+         </td>
+          <td>
+           {{ user.firstname }}
+          </td>
+          <td>
+           {{ user.lastname }}
+          </td>
+          <td>
+           {{ user.phone }}
+          </td>
+           <td>
+           {{ user.email }}
+          </td>
+
+{% endmacro %}
+

@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% from 'common.html' import edit_field %}
+{% if request.endpoint.endswith('edit') %}
+  {% set title = 'Edit Ticket '  + tnumber | string  %} 
+{% else %} 
+{% set title = 'Add Ticket' %} {% endif %} 
+{% block title %}{{ title }}{% endblock title %}
+{% block page_content %}
+<div class="row">
+  <div class="ticket-edit well offset2 span8">
+  <form method="post" class="form-horizontal">
+
+    {% if request.endpoint.endswith('edit') %}
+      <form method="post" action=" {{ url_for('ticket_edit', ticket_id=ticket_id ) }} " class="form-horizontal"> 
+    {% else %} 
+      <form method="post" action=" {{ url_for('ticket_create', ticket_id=ticket_id ) }} " class="form-horizontal">
+   {% endif %}  
+
+     <legend>{{ title }}</legend>
+     {{form.hidden_tag()}}
+
+     {{ edit_field(form.ttype, class="span3", placeholder="Type") }}
+     {% if request.endpoint.endswith('edit') %}
+     {{ edit_field(form.tstate, class="span3", placeholder="State") }}
+     {% endif %}  
+     {{ edit_field(form.tpriority, class="span3", placeholder="Priority") }}
+     {{ edit_field(form.body, class="span3", placeholder="Body") }}
+
+     {{ edit_field(form.firstname, class="span3", placeholder="First Name") }}
+     {{ edit_field(form.lastname, class="span3", placeholder="Last Name") }}
+     {{ edit_field(form.phone, class="span3", placeholder="Phone") }}
+     {{ edit_field(form.cemail, class="span3", placeholder="Email") }}
+
+     <div class="form-actions">
+       <button type="submit" class="btn btn-default">Save</button>
+        {% if request.endpoint.endswith('edit') %}
+       or <a class="btn btn-default" href="{{ url_for('ticket', ticket_id=ticket_id) }}">Cancel</a>
+         {% else %} 
+       or <a class="btn btn-default" href="{{ url_for('customer', customer_id=customer_id) }}">Cancel</a>
+          {% endif %}  
+     </div>
+  </form>
+  </div>
+</div>
+{% endblock page_content %}

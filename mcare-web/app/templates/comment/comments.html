@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block head %}
+{{ super() }}
+
+<script type=text/javascript>
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
+</script>
+
+{% endblock %}
+
+
+{% set title = 'Comments' %} 
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block page_content %}
+
+
+
+<h3> Comments </h3>
+
+   <div class="form-actions" align="right">
+      <a href="{{ url_for('comment_create') }}">Add Comment</a>
+
+   </div>
+
+<table class="table table-striped table-hover">	
+    <tr >
+             <th class="h4"> Created </th>
+            <th class="h4"> Contact </th>
+             <th class="h4"> Body </th>
+                  
+         </tr>
+   
+    {% for comment in comments %}
+       
+      
+         {% if comment.timestamp %}
+          <td>
+           {{ comment.timestamp }}
+         </td>
+         {% endif %}
+          {% if comment.email %}
+          <td>
+           {{ comment.email }}
+         </td>
+         {% endif %}
+          {% if comment.body %}
+               <td>
+           {{ comment.body }}
+         </td>
+         {% endif %}
+          </tr>
+   
+
+    {% else %}
+      
+         
+           <td class="col-md-4"> No comments</td>
+         
+    {% endfor %}
+
+</table>
+
+
+
+
+
+{% endblock %}
+

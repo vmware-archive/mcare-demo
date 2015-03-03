@@ -1,0 +1,101 @@
+
+{% extends 'base.html' %}
+{% from 'common.html' import ticket_detail %}
+
+ {% block title %}{{ customer.cname }} or '(untitled)'{% endblock title %}
+
+{% block page_content  %}
+
+  <h2>{{ customer.cname }}</h2>
+ 
+
+  <div class="form-actions" align="right">
+
+
+              <i <span class="glyphicon glyphicon-pencil"></span></i>
+              <a href="{{ url_for('customer_edit', customer_id=customer.id) }}">Edit</a>
+               <span class="inline-pad"></span>
+            
+          {% if customer.user.email == current_user.email  %}
+              <i> <span class="glyphicon glyphicon-trash"></span></i>
+              <a class="delete-link" href="#" 
+                        data-delete-url="{{ url_for('customer_delete', customer_id = customer.id) }}"
+                        data-delete-next-url="{{ url_for('customer_list')}}">Delete</a>
+              {% endif %}    
+  </div>
+
+
+         
+
+  <table class="table">
+  	 <thead>
+      <tr>
+         <th class="h4 col-md-2">Address</th>
+         <th class="h4 col-md-3"></th>
+         <th class="h4 col-md-2">Contacts</th>
+         <th class="h4 col-md-3"></th>
+         </th>
+      </tr>
+    </thead>
+  <tbody>
+
+    <tr>
+ 
+      <td> {{ customer.street }} <br></br> {{ customer.city }} , {{ customer.state }}   {{ customer.postal }}         </td>   
+      <td></td>
+         <td>  {{ customer.firstname }} {{ customer.lastname }} <br></br> {{ customer.email }}<br></br>
+          <label>Internal:</label> {{ customer.user.email }}  </td>
+     
+    </tr>
+
+  
+   
+
+   </tbody>
+  </table>
+
+
+
+<h3> Tickets </h3>
+
+ <div class="form-actions" align="right">
+      <i <span class="glyphicon glyphicon-plus"></span></i>
+      <a href="{{ url_for('ticket_create', customer_id=customer.id) }}">Add Ticket</a>
+   </div>
+
+<table class="table table-striped">	
+    <tr>
+             <th class="h4"> Number </th>
+             <th class="h4"> Type </th>
+             
+             <th class="h4"> Created </th>
+             <th class="h4"> Status </th>
+    <tr>
+    {% for ticket in tickets %}
+
+        <tr>
+          <td>
+           <a href=" {{ url_for('ticket', ticket_id=ticket.id) }}">  {{ ticket.tnumber|string }} </a>
+         </td>
+          <td>
+           {{ ticket.ttype }}
+         </td>
+         
+          <td>
+           {{ ticket.timestamp }}
+          </td>
+          <td>
+           {{ ticket.tstate }}
+          </td>
+        
+    </tr>
+
+    {% else %}
+      
+       <tr>
+           <td class="col-md-4"> No tickets</td>
+       </tr>    
+    {% endfor %}
+   
+</table>
+{% endblock page_content  %}

@@ -1,0 +1,72 @@
+#from app import db
+
+class User(db.Model):
+    __tablename__ = 'Model'
+    __table_args__ = {'mysql_engine':'InnoDB'} 
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    uname = db.Column(db.String(64), unique=True)
+    firstname = db.Column(db.String(16), nullable = True)
+    lastname = db.Column(db.String(16), nullable = True)
+    phone = db.Column(db.String(18),  nullable = True)
+    email = db.Column(db.String(120), nullable = True)
+
+    def __repr__(self):
+        return '<User %r>' % (self.body)
+
+class Customer(db.Model):
+    __tablename__ = 'Customer'
+    __table_args__ = {'mysql_engine':'InnoDB'} 
+    id = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    cname = db.Column(db.String(64), index=True, unique=True)
+    email = db.Column(db.String(120), index=True, unique=True)
+    
+    def __repr__(self):
+        return '<Customer %r>' % (self.cname)
+
+class Ticket(db.Model):
+    __tablename__ = 'Ticket'
+    __table_args__ = {'mysql_engine':'InnoDB'} 
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime)
+    firstname = db.Column(db.String(16), nullable = True)
+    lastname = db.Column(db.String(16), nullable = True)
+    phone = db.Column(db.String(18),  nullable = True)
+    cemail = db.Column(db.String(120), nullable = True)
+    state = db.Column(db.String(16), nullable = True)
+    
+    customer_id = db.Column(db.Integer, db.ForeignKey('Customer.id'), nullable = False)
+    customer = db.relationship('Customer', backref=db.backref('tickets', lazy='dynamic'))
+
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+   
+    def __repr__(self):
+        return '<Ticket %r>' % (self.body)
+
+    
+class Comment(db.Model):
+    __tablename__ = 'Comment'
+    __table_args__ = {'mysql_engine':'InnoDB'} 
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime)
+    
+    ticket_id = db.Column(db.Integer, db.ForeignKey('Ticket.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+       
+    def __repr__(self):
+        return '<Comment %r>' % (self.body)
+
+
+class Follower(db.Model):
+    __tablename__ = 'Follower'
+    __table_args__ = {'mysql_engine':'InnoDB'} 
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    timestamp = db.Column(db.DateTime)
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    ticket_id = db.Column(db.Integer, db.ForeignKey('Ticket.id'), nullable = False)
+
+    def __repr__(self):
+        return '<Follower %r>' % (self.body)
+

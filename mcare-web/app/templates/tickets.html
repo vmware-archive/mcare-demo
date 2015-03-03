@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% from 'common.html' import ticket_detail %}
+
+{% block title %}
+<div class="page-header">
+    <h1>Tickets</h1>
+</div>{% endblock %}
+
+
+
+{% block page_content %}
+
+<table class="table table-striped">	
+    <tr>
+             <th class="h4"> Number </th>
+             <th class="h4"> Type </th>
+             <th class="h4"> Body </th>
+             <th class="h4"> Timestamp </th>
+             <th class="h4"> State </th>
+    <tr>
+    {% for ticket in tickets %}
+
+           {{ ticket_detail(ticket, link_title=true, show_edit=false) }}
+
+    {% else %}
+      
+         <div class="row">
+           <h3 class="col-md-4"> No tickets</h3>
+         </div>
+    {% endfor %}
+   
+</table>
+{% endblock %}
+
