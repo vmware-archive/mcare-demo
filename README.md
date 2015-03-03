@@ -14,7 +14,7 @@ The new mobile application should enable sales reps to view Customer Service cal
 - A PCF User Provided Service connecting to a remote on-premise mySQL Database
 - A mobile client utilizing Kinvey mBaaS for Push Notifications
 
-![DemoSnapshot](https://github.com/vmware/mcare-demo/bob/master/docs/resources/DemoSnapshot.png)
+![DemoSnapshot](https://github.com/vmware/mcare-demo/blob/master/docs/resources/DemoSnapshot.png)
 
 ###### The demo is composed of a number of components each with their own gitHub repository
 
