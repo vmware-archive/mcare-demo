@@ -102,3 +102,115 @@ mCare Mobile Client
 8. Receive an Apple push notification whan a Customer Ticket is modified
 
 
+
+
+### Developer Workstation Installation Steps
+
+
+#### Install Python and Python Virtual Env
+
+// if python virtualEnv not on workstation
+
+```
+   $ sudo pip install virtualenv
+```
+
+Then
+
+```
+   $ mkdir ~/vcademo/virtualEnvs
+   $ cd ~/vcademo/virtualEnvs
+
+   $ virtualenv mcare
+   $ cd mcare
+   $ source ./bin/activate
+   (mcare) $
+```
+
+#### Checkout project from github
+
+```
+   $ git clone https://github.com/vmware/mcare-demo.git
+```
+
+
+==== Python project
+
+Open the project with an editor such as sublime.
+Note sublime opens the directory and treats it as a project.
+File-> Open 
+Browse to
+/Users/bwebster/vcademo/virtualEnvs/mcare/mcare-demo/mcare-web
+
+
+==== Running the Web Project locally
+
+The project should be executed within a python virtual env
+to keep python modules separate the base python install on your workstation.
+
+Ensure the python virtual env is activated, you should see a command prompt
+that includes the the virtual env name 
+
+For example
+
+(mcare)$ 
+
+If is not activated then run
+
+```
+cd mcare
+source ./bin/activate
+
+pip install -r requirements.txt
+python runApp.py
+
+
+One the application has started, open a browser to the url
+http://localhost:5000
+```
+
+(mcare)$ 
+
+
+to deactivate run at some point in the future, rather than simply
+closing the terminal window
+
+```
+(mcare)$ deactivate
+```
+
+==== Mac xcode project
+
+Using Apple Xcode 6.1 or greater
+
+Open the project
+
+~/vcaDemo/pythonVirtualEnvs/mcare/mcare-demo/mcare-mobile/mcare.xcodeproj
+
+Deploy to iphone or iphone  emulator
+
+Use home button to go to iPhone settings.
+Open mCare app and set local flask server url
+
+For example
+
+For local flask server:
+
+The values should set in the config.py
+
+  PYTHON_HOST= '192.168.0.10'
+  PYTHON_PORT= '5000'
+
+// use localhost if you don’t need to connect from iPhone, set PYTHON_HOST to localhost and use
+http://localhost:5000
+
+// use the local nic ip address if also connecting from iPhone, for example
+http://192.168.0.10:5000
+
+For Cloud Foundry
+http://customer-service.23.92.225.219.xip.io
+
+
+login with user  bwebster / welcome1
+or another registered user created through the Web version of the App.
+

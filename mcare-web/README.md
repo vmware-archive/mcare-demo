@@ -23,7 +23,7 @@ git clone https://github.com/vmware/mcare-demo
 ```
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 python runApp.py
 ```
 
