@@ -1,5 +1,5 @@
 # A vCloud Air Application Services Demo
-===================
+
 
 This demo highlights the use of Application Services on VMWare vCloud Air
 
@@ -104,18 +104,22 @@ mCare Mobile Client
 
 
 
-### Developer Workstation Installation Steps
+## Developer Workstation Installation Steps
 
 
 #### Install Python and Python Virtual Env
 
-// if python virtualEnv not on workstation
+if python virtualEnv is not already on the workstation
 
 ```
+
+   $virtualenv --version
+   
+
    $ sudo pip install virtualenv
 ```
 
-Then
+Then once virtualenv is installed
 
 ```
    $ mkdir ~/vcademo/virtualEnvs
@@ -127,14 +131,14 @@ Then
    (mcare) $
 ```
 
-#### Checkout project from github
+#### Checkout the mcare project from github
 
 ```
    $ git clone https://github.com/vmware/mcare-demo.git
 ```
 
 
-==== Python project
+#### Open the mcare Python Web Project 
 
 Open the project with an editor such as sublime.
 Note sublime opens the directory and treats it as a project.
@@ -143,7 +147,7 @@ Browse to
 /Users/bwebster/vcademo/virtualEnvs/mcare/mcare-demo/mcare-web
 
 
-==== Running the Web Project locally
+#### Running the Web Project locally
 
 The project should be executed within a python virtual env
 to keep python modules separate the base python install on your workstation.
@@ -158,19 +162,18 @@ For example
 If is not activated then run
 
 ```
-cd mcare
-source ./bin/activate
+$ cd mcare
+$ source ./bin/activate
 
-pip install -r requirements.txt
-python runApp.py
+$ pip install -r requirements.txt
+$ python runApp.py
 
-
-One the application has started, open a browser to the url
-http://localhost:5000
 ```
 
-(mcare)$ 
+Once the application has started, open a browser to the url http://localhost:5000
 
+
+```
 
 to deactivate run at some point in the future, rather than simply
 closing the terminal window
@@ -179,7 +182,7 @@ closing the terminal window
 (mcare)$ deactivate
 ```
 
-==== Mac xcode project
+## Mac xcode project
 
 Using Apple Xcode 6.1 or greater
 
@@ -194,20 +197,23 @@ Open mCare app and set local flask server url
 
 For example
 
-For local flask server:
+##### Local flask server testing:
 
 The values should set in the config.py
 
   PYTHON_HOST= '192.168.0.10'
   PYTHON_PORT= '5000'
 
-// use localhost if you don’t need to connect from iPhone, set PYTHON_HOST to localhost and use
+  The host value depends
+
+Use a value of localhost if you don’t need to connect from iPhone, set PYTHON_HOST to localhost and use
 http://localhost:5000
 
-// use the local nic ip address if also connecting from iPhone, for example
+Use a value of the local nic ip address if connecting from a browser and an iPhone, for example
 http://192.168.0.10:5000
 
-For Cloud Foundry
+##### Cloud Foundry testing
+For Cloud Foundry use the following url in the phone, no need to set PYTHON_HOST in the config.py file.
 http://customer-service.23.92.225.219.xip.io
 
 

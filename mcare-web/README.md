@@ -62,12 +62,33 @@ exposed either as a mySQL service or as a Cloud Foundry User Provided Service.
 A mySql database exposed as a UPS can be located locally or remotely from the Cloud Foundry Servers.
 If no service definition is found, the application will default to the in-memory default database.
 
+
+####### Cloud Foundry 3.1 Envionment
+
+Ops Manager 3.1
+https://login.23.92.225.245.xip.io/
+User: Admin 
+Password: test31
+
+Pivotal Dev Console 3.1
+https:api.23,92,225,219.xip.io
+User: admin
+Password: ea95d7d4242009b8431a
+
+
+
 A default Cloud Foundry manifest file has been provided.
 
 ```
-cf login
-cd mcare
-cf push . customer-service
+cf api https://api.23.92.225.219.xip.io --skip-ssl-validation
+pcf login 
+admin
+ea95d7d4242009b8431a
+
+// select MyOrg when prompted
+
+cd mcare-web
+cf push customer-service
 
 ```
 
@@ -109,7 +130,7 @@ cf cups remote-mysql -p '{"host":"192.168.109.2","port":"3306","database":"custo
 ```
 
 
-
+Password:  ea95d7d4242009b8431a
 
 
 
