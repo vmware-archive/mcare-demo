@@ -57,7 +57,7 @@
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     
-    // @"http://customer-service.23.92.225.219.xip.io/api/";
+    // @"http://customer-service.23.92.225.219.xip.io/";
     
     _restUrl = [NSString stringWithFormat:@"%@/%@/", appdelegate.flaskUrl, @"api/v1.0"];
     appdelegate.userName = _loginField.text;
