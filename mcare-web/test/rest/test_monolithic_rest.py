@@ -31,53 +31,54 @@ class Monolithic(unittest.TestCase):
         # IntegrityError: (IntegrityError) (1048, u"Column 'user_id' cannot be null") 
         #                 'UPDATE customer SET user_id=%s WHERE customer.id = %s' (None, 26)
 
+        # but cascade delete set for customer and their tickets and comments.
         # http://192.168.0.12:5000/api/v1.0/users?q={%22uname%22:%22sbspants%22}
 
 
 
-        print(self.apiurl +  '/comments?q=' + "{\"body\": \"Test Comment\"} ")
-        r = requests.get(self.apiurl + '/comments?q=' + "{\"body\": \"Test Comment\"} ")
-        self.assertEqual(r.status_code, 200)
-        data = json.loads(r.text)
-        print(data)
-        comments = data["comments"]
-        if (len(comments) > 0):
-           comment = comments[0]
-           self.id = comment['id']
-           print('status code ' + str(r.status_code))
-           print('Found Existing Test Comment ' + str(self.id))
+    #    print(self.apiurl +  '/comments?q=' + "{\"body\": \"Test Comment\"} ")
+    #    r = requests.get(self.apiurl + '/comments?q=' + "{\"body\": \"Test Comment\"} ")
+    #    self.assertEqual(r.status_code, 200)
+    #    data = json.loads(r.text)
+    #    print(data)
+    #    comments = data["comments"]
+    #    if (len(comments) > 0):
+    #       comment = comments[0]
+    #       self.id = comment['id']
+    #       print('status code ' + str(r.status_code))
+    #       print('Found Existing Test Comment ' + str(self.id))
 
            
-           r = requests.delete(self.apiurl + '/comments/' + str(self.id), headers=self.hdrs)
-           print('Deleted Comment  ' + str(self.id))
-           print('status code ' + str(r.status_code))
+    #       r = requests.delete(self.apiurl + '/comments/' + str(self.id), headers=self.hdrs)
+    #       print('Deleted Comment  ' + str(self.id))
+    #       print('status code ' + str(r.status_code))
            
-           if(r.status_code != 200):
-               print(json.loads(r.text))
+    #       if(r.status_code != 200):
+    #           print(json.loads(r.text))
 
-           self.assertEqual(r.status_code, 200)
+    #       self.assertEqual(r.status_code, 200)
 
-        print(self.apiurl +  '/tickets?q=' + "{\"body\": \"Test Ticket\"} ")
-        r = requests.get(self.apiurl + '/tickets?q=' + "{\"body\": \"Test Ticket\"} ")
-        self.assertEqual(r.status_code, 200)
-        data = json.loads(r.text)
-        print(data)
-        tickets = data["tickets"]
-        if (len(tickets) > 0):
-           ticket = tickets[0]
-           self.id =ticket['id']
-           print('status code ' + str(r.status_code))
-           print('Found Existing Test Ticket ' + str(self.id))
+    #    print(self.apiurl +  '/tickets?q=' + "{\"body\": \"Test Ticket\"} ")
+    #    r = requests.get(self.apiurl + '/tickets?q=' + "{\"body\": \"Test Ticket\"} ")
+    #    self.assertEqual(r.status_code, 200)
+    #    data = json.loads(r.text)
+    #    print(data)
+    #    tickets = data["tickets"]
+    #    if (len(tickets) > 0):
+    #       ticket = tickets[0]
+    #       self.id =ticket['id']
+    #       print('status code ' + str(r.status_code))
+    #       print('Found Existing Test Ticket ' + str(self.id))
 
            
-           r = requests.delete(self.apiurl + '/tickets/' + str(self.id), headers=self.hdrs)
-           print('Deleted Ticket  ' + str(self.id))
-           print('status code ' + str(r.status_code))
+    #       r = requests.delete(self.apiurl + '/tickets/' + str(self.id), headers=self.hdrs)
+    #       print('Deleted Ticket  ' + str(self.id))
+    #       print('status code ' + str(r.status_code))
            
-           if(r.status_code != 200):
-               print(json.loads(r.text))
+    #       if(r.status_code != 200):
+    #           print(json.loads(r.text))
 
-           self.assertEqual(r.status_code, 200)
+     #      self.assertEqual(r.status_code, 200)
 
         print(self.apiurl +  '/customers?q=' + "{\"cname\": \"Test Customer\"} ")
         r = requests.get(self.apiurl + '/customers?q=' + "{\"cname\": \"Test Customer\"} ")
@@ -189,6 +190,8 @@ class Monolithic(unittest.TestCase):
         print(data)
         if(r3.status_code == 201):
              print('Created Test Comment ' + str(self.uid))   
+             comment = data["comment"]
+             self.mid = comment["id"]
         else: 
              print('status code ' + str(r3.status_code))
             
@@ -237,7 +240,7 @@ class Monolithic(unittest.TestCase):
     def step7b_update_follower(self):
         midnight = datetime.combine(date.today(), time.min)
 
-        payload4={ "id": self.fid,  "timestamp" :  str(midnight), "modified_timestamp" : str(midnight), "user_id" : 4, "ticket_id" : 12 }
+        payload4={ "id": self.fid,  "timestamp" :  str(midnight), "modified_timestamp" : str(midnight), "user_id" : self.uid, "ticket_id" : self.tid }
         print('payload=' + str(payload4))
         r8 = requests.put(self.apiurl + '/followers/' + str(self.fid), data=json.dumps(payload4), headers=self.headers)
         print('status code ' + str(r8.status_code))
@@ -256,25 +259,25 @@ class Monolithic(unittest.TestCase):
         r = requests.delete(self.apiurl + '/comments/' + str(self.mid), headers=self.hdrs)
         print('status code ' + str(r.status_code))
         print('Deleted Comment  ' + str(self.mid))
-        self.assertEqual(r.status_code, 204)
+        self.assertEqual(r.status_code, 200)
 
     def step9b_delete_ticket(self):
         r = requests.delete(self.apiurl + '/tickets/' + str(self.tid), headers=self.hdrs)
         print('status code ' + str(r.status_code))
         print('Deleted Ticket  ' + str(self.tid))
-        self.assertEqual(r.status_code, 204)
+        self.assertEqual(r.status_code, 200)
 
     def step9c_delete_customer(self):
         r = requests.delete(self.apiurl + '/customers/' + str(self.cid), headers=self.hdrs)
         print('status code ' + str(r.status_code))
         print('Deleted Customer  ' + str(self.cid))
-        self.assertEqual(r.status_code, 204)
+        self.assertEqual(r.status_code, 200)
 
     def step9d_delete_user(self):
         r = requests.delete(self.apiurl + '/users/' + str(self.uid), headers=self.hdrs)
         print('status code ' + str(r.status_code))
         print('Deleted User  ' + str(self.uid))
-        self.assertEqual(r.status_code, 204)
+        self.assertEqual(r.status_code, 200)
 
     def steps(self):
         for name in sorted(dir(self)):

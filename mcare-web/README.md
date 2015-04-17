@@ -63,40 +63,87 @@ A mySql database exposed as a UPS can be located locally or remotely from the Cl
 If no service definition is found, the application will default to the in-memory default database.
 
 
-####### Cloud Foundry 3.1 Envionment
+###### Cloud Foundry 3.1 Envionment
 
 Ops Manager 3.1
-https://login.23.92.225.245.xip.io/
-User: Admin 
-Password: test31
+
+[https://login.23.92.225.245.xip.io/](https://login.23.92.225.245.xip.io/)
+User- Admin 
+Password- test31
 
 Pivotal Dev Console 3.1
-https:api.23,92,225,219.xip.io
-User: admin
-Password: ea95d7d4242009b8431a
 
+[https://api.23,92,225,219.xip.io](https://api.23,92,225,219.xip.io)
+User- admin
+Password- ea95d7d4242009b8431a
 
+Install Pivotal Cloud Foundry CLI 
+(if not aready available on the workstation)
+
+```
+$ cf -v
+  cf version 6.6.0-704d304-2014-09-05T20:45:11+00:00
+```
+
+If a version number is not return after running the command above,
+install the Pivotal Cloud Foundry CLI
+following the instructions at this location
+
+[https://console.run.pivotal.io/tools](https://console.run.pivotal.io/tools)
+
+######  Deploying to Cloud Foundry
 
 A default Cloud Foundry manifest file has been provided.
+Follow the following steps to connect to the Cloud Foundry instance
+and deploy the application.
 
 ```
-cf api https://api.23.92.225.219.xip.io --skip-ssl-validation
-pcf login 
-admin
-ea95d7d4242009b8431a
+$ cf api https://api.23.92.225.219.xip.io --skip-ssl-validation
 
-// select MyOrg when prompted
+$ cf login
+     API endpoint: https://api.23.92.225.219.xip.io
+     Email>  admin
+     Password>  ea95d7d4242009b8431a
 
-cd mcare-web
-cf push customer-service
+     OK
+
+     Select an org (or press enter to skip):
+     1. system
+     2. MyOrg
+     3. jenkins-test-org
+
+     Org> 2
+     Targeted org MyOrg
+
+ 
+$ cd mcare-web
+
+$ cf push customer-service
+
+     state     since                    cpu    memory           disk   
+#0   running   2015-04-14 03:19:49 PM   0.0%   103.9M of 256M   137M of 1G   
 
 ```
 
+If the application push fails check the log output using the following command
 
-One the application has started, open a browser to the url provided by Cloud Foundry
+```
+$ cf logs customer-service --recent
+```
+
+
+Once the application has started, open a browser to the url provided by Cloud Foundry
 For example
 
 urls: customer-service.22.22.222.219.xip.io
+
+
+Jenkins in Cloud Foundry
+
+Must first login to cloud foundry console
+
+https://pivotal-cloudbees.23.92.225.219.xip.io/
+admin / ea95d7d4242009b8431a
 
 
 #### Configuring a mySql Database
@@ -130,7 +177,7 @@ cf cups remote-mysql -p '{"host":"192.168.109.2","port":"3306","database":"custo
 ```
 
 
-Password:  ea95d7d4242009b8431a
+
 
 
 

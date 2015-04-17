@@ -349,7 +349,7 @@ class Ticket(Base):
     tstate = Column(String(16), nullable = True)
     
     customer_id = Column(Integer, ForeignKey('customer.id'), nullable = False)
-    customer = relationship('Customer', backref=backref('tickets', lazy='dynamic'))
+    customer = relationship('Customer', backref=backref('tickets', lazy='dynamic', cascade="all, delete-orphan"))
 
     user_id = Column(Integer, ForeignKey('user.id'), nullable = False)
    
