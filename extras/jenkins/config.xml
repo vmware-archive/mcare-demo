@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Read:admin</permission>
+      <permission>hudson.model.Item.Delete:admin</permission>
+      <permission>hudson.model.Item.Workspace:admin</permission>
+      <permission>hudson.model.Item.Configure:admin</permission>
+      <permission>hudson.model.Item.Build:admin</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_DOMAIN</name>
+          <description/>
+          <defaultValue>23.92.225.219.xip.io</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_USER</name>
+          <description/>
+          <defaultValue>admin</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>CF_PWD</name>
+          <description/>
+          <defaultValue>Ko6cfVlO3GvoaZPvk1q79oRO26WKe2WC9+N3vXRuBa7dt8GI4f9Wdpn5xdx2W8bp</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_ORG</name>
+          <description/>
+          <defaultValue>MyOrg</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_SPACE</name>
+          <description/>
+          <defaultValue>development</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_APP</name>
+          <description/>
+          <defaultValue>customer-service</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_MANIFEST</name>
+          <description/>
+          <defaultValue>./manifest.yml</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name/>
+          <description/>
+          <defaultValue/>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CF_JAR</name>
+          <description/>
+          <defaultValue>.</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <EnvInjectJobProperty plugin="envinject@1.90">
+      <info>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/rdbwebster/vca-callcenterapp-demo.git</url>
+        <credentialsId>2b89adcc-819d-46d7-9a7f-67c25db8380e</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.10">
+      <spec/>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># Setup a proper path, I call my virtualenv dir "venv" and
+# I've got the virtualenv command installed in /usr/local/bin
+PATH=$WORKSPACE/venv/bin:/usr/local/bin:$PATH
+if [ ! -d "venv" ]; then
+        virtualenv venv
+fi
+. venv/bin/activate
+pip install -r requirements.txt --download-cache=/tmp/$JOB_NAME
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cf login -a https://api.$CF_DOMAIN -u $CF_USER -p $CF_PWD -o $CF_ORG -s $CF_SPACE  --skip-ssl-validation
+
+DEPLOYED_VERSION_CMD=$(CF_COLOR=false cf apps | grep $CF_APP- | cut -d" " -f1)
+DEPLOYED_VERSION="$DEPLOYED_VERSION_CMD"
+ROUTE_VERSION=$(echo "${BUILD_NUMBER}" | cut -d"." -f1-3 | tr '.' '-')
+echo "Deployed Version: $DEPLOYED_VERSION"
+echo "Route Version: $ROUTE_VERSION"
+
+
+# push a new version and map the route
+cf push "$CF_APP-$BUILD_NUMBER" -n "$CF_APP-$ROUTE_VERSION" -d $CF_DOMAIN -p $CF_JAR -f $CF_MANIFEST
+echo "NEW_VERSION=$CF_APP-$BUILD_NUMBER" &gt; /tmp/jbuild.properties
+</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.90">
+      <info>
+        <propertiesFilePath>/tmp/jbuild.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>. venv/bin/activate
+ENDPOINT=$(cf apps | grep $NEW_VERSION | tr -s ' ' | cut -d" " -f6 | tr -d ' ')
+echo "ENDPOINT: $ENDPOINT"
+export HTTP_API_URI=$(echo "http://${ENDPOINT}/api" | tr -d ' ')
+echo "Unit test using endpoint $HTTP_API_URI"
+python -m unittest discover -s ./test/rest</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cf map-route "$CF_APP-${BUILD_NUMBER}" $CF_DOMAIN -n $CF_APP
+
+if [ ! -z "$DEPLOYED_VERSION" -a "$DEPLOYED_VERSION" != " " -a "$DEPLOYED_VERSION" != "$CF_APP-${BUILD_NUMBER}" ]; then
+  echo "Performing zero-downtime cutover to $BUILD_NUMBER"
+  echo "$DEPLOYED_VERSION" | while read line
+  do
+    if [ ! -z "$line" -a "$line" != " " -a "$line" != "$CF_APP-${BUILD_NUMBER}" ]; then
+      echo "Scaling down, unmapping and removing $line"
+      # Unmap the route and delete
+      cf unmap-route "$line" $CF_DOMAIN -n $CF_APP
+      cf delete "$line" -f
+    else
+      echo "Skipping $line"
+    fi
+  done
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
