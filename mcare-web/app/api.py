@@ -12,10 +12,17 @@ from app.storage.db.model import Comment, Follower, User, Ticket, Customer
 
 class CustomerResource():
    
+
+
     @appl.route('/api/v1.0/customers', methods=['GET'])
     def customer_list_json():
 
-        customers = Customer.list()
+        querystring = request.args.get('q')
+        if (querystring is not None):
+            querymap = json.loads(querystring)
+            customers = Customer.list(filter_by=querymap)
+        else:
+            customers = Customer.list()
 
            # No Such Customer
         if customers is None:
@@ -29,6 +36,9 @@ class CustomerResource():
         return jsonify( {'customers': customerList} )
       
 
+     
+
+     
 
 
     @appl.route('/api/v1.0/customers/<int:pk>', methods=['GET'])
@@ -43,6 +53,20 @@ class CustomerResource():
         return jsonify({'customer': CustomerResource.customer_json(customer)})
 
     
+    @appl.route('/api/v1.0/customers/<int:cpk>/tickets/<int:tpk>', methods=['GET'])
+    def customer_ticket_json(cpk, tpk):
+
+        customer = Customer.detail(cpk)
+
+        # No Such Customer
+        if customer is None:
+            return make_response(jsonify({'error': 'Customer Not found'}), 404)
+
+        ticket = Ticket.detail(tpk)
+        if ticket is None:
+            return make_response(jsonify({'error': 'Ticket Not found'}), 404)
+
+        return jsonify({'ticket': TicketResource.ticket_json(ticket)})
 
 
 
@@ -84,7 +108,7 @@ class CustomerResource():
 
 
 
-    @appl.route('/todo/api/v1.0/customers/<int:pk>', methods=['DELETE'])
+    @appl.route('/api/v1.0/customers/<int:pk>', methods=['DELETE'])
     def customer_delete_json(pk):
 
        Customer.delete(pk)
@@ -152,7 +176,12 @@ class TicketResource(object):
     def ticket_list_json():
 
 
-        tickets = Ticket.list()
+        querystring = request.args.get('q')
+        if (querystring is not None):
+            querymap = json.loads(querystring)
+            tickets = Ticket.list(filter_by=querymap)
+        else:
+            tickets = Ticket.list()
 
         # No Tickets
         if tickets is None:
@@ -193,7 +222,8 @@ class TicketResource(object):
 
         try:
            ticket = Ticket.create(ttype=request.json.get('ttype') , tpriority=request.json.get('tpriority') , body=request.json.get('body'), \
-                                  timestamp=request.json.get('timestamp'), firstname=request.json.get('firstname'), \
+                                  timestamp=request.json.get('timestamp'), modified_timestamp=request.json.get('timestamp'), \
+                                  firstname=request.json.get('firstname'), \
                                   lastname=request.json.get('lastname'),  phone=request.json.get('phone'), \
                                   cemail=request.json.get('cemail'), tstate=request.json.get('tstate'), \
                                   customer_id=request.json.get('customer_id'), user_id=request.json.get('user_id') ) 
@@ -224,7 +254,7 @@ class TicketResource(object):
         return jsonify({'ticket': TicketResource.ticket_json(ticket)})
 
 
-    @appl.route('/todo/api/v1.0/tickets/<int:pk>', methods=['DELETE'])
+    @appl.route('/api/v1.0/tickets/<int:pk>', methods=['DELETE'])
     def ticket_delete_json( pk):
 
         Ticket.delete(pk)
@@ -290,7 +320,12 @@ class CommentResource(object):
     @appl.route('/api/v1.0/comments', methods=['GET'])
     def comment_list_json():
 
-        comments = Comment.list()
+        querystring = request.args.get('q')
+        if (querystring is not None):
+            querymap = json.loads(querystring)
+            comments = Comment.list(filter_by=querymap)
+        else:
+            comments = Comment.list()
 
         # No Comments
         if comments is None:
@@ -353,7 +388,7 @@ class CommentResource(object):
 
 
 
-    @appl.route('/todo/api/v1.0/comments/<int:pk>', methods=['DELETE'])
+    @appl.route('/api/v1.0/comments/<int:pk>', methods=['DELETE'])
     def comment_delete_json( pk):
 
         Comment.delete(pk)
@@ -381,8 +416,12 @@ class FollowerResource(object):
     @appl.route('/api/v1.0/followers', methods=['GET'])
     def follower_list_json():
 
-
-        followers = Follower.list()
+        querystring = request.args.get('q')
+        if (querystring is not None):
+            querymap = json.loads(querystring)
+            followers = Follower.list(filter_by=querymap)
+        else:
+            followers = Follower.list()
 
         # No Followers
         if followers is None:
@@ -416,7 +455,7 @@ class FollowerResource(object):
 
         try:
 
-            newFollower = Follower.create(request.json.get('timestamp'), request.json.get('modified_timestamp'), \
+            follower = Follower.create(request.json.get('timestamp'), request.json.get('modified_timestamp'), \
                                 request.json.get('user_id'), request.json.get('ticket_id')  ) 
 
 
@@ -444,7 +483,7 @@ class FollowerResource(object):
 
 
 
-    @appl.route('/todo/api/v1.0/followers/<int:pk>', methods=['DELETE'])
+    @appl.route('/api/v1.0/followers/<int:pk>', methods=['DELETE'])
     def follower_delete_json(pk):
 
         Follower.delete(pk)
@@ -547,11 +586,12 @@ class UserResource(object):
 
 
 
-    @appl.route('/todo/api/v1.0/users/<int:pk>', methods=['DELETE'])
+    @appl.route('/api/v1.0/users/<int:pk>', methods=['DELETE'])
     def user_delete_json(pk):
 
         try:
             User.delete(pk)
+            print("In User Delete api.py")
 
         except MCException as e:
             return make_response(jsonify({'error': e.value}), 500)

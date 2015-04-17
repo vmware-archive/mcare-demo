@@ -1,5 +1,5 @@
 
-import sys, os
+import sys, os, traceback
 #sys.path.insert(1, os.path.join(sys.path[0], '../..'))
 from app.mcexception import MCException
 from werkzeug import check_password_hash
@@ -165,9 +165,19 @@ class User(Base):
         user = session.query(User).get(pk)
         
         if user is not None:
+            try:
         # Skip if not found
-            session.delete(user)
-            session.commit()
+
+               session.delete(user)
+               session.commit()
+               print('USER HAS BEEN DELETED')
+
+
+            except exc.IntegrityError:
+               var = traceback.format_exc()
+               print("Unexpected Integrity Error " +  str(var))
+               session.rollback()
+               raise MCException("Integrity Error, unable to delete User")
 
         else:
             raise MCException("No such User Found")
@@ -228,11 +238,13 @@ class Customer(Base):
        
             session.commit()
  
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
             session.rollback()
+            print("Unexpected Exception " +  str(var))
             raise MCException("Integrity Error, customer already exists")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid customer data")
 
@@ -259,16 +271,19 @@ class Customer(Base):
             session.add(customer)
             session.commit()
 
-        except exc.NoResultFound:
+        except exc.NoResultFound as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("No customer found to update.")
               
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, unable to update customer")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid customer data")
 
@@ -284,8 +299,14 @@ class Customer(Base):
         
         if customer is not None:
         # Skip if not found
-            session.delete(customer)
-            session.commit()
+            try:
+                session.delete(customer)
+                session.commit()
+
+            except exc.IntegrityError as var:
+               print("Unexpected Integrity Error " +  str(var))
+               session.rollback()
+               raise MCException("Integrity Error, unable to delete Customer")
 
         else:
             raise MCException("No such Customer")
@@ -314,7 +335,7 @@ class Ticket(Base):
         id = Column(Integer, primary_key = True)
 
     #tnumber = Column(Integer, autoincrement = True)
-    ticketnumber = relationship('TicketNumber', backref=backref('tickets', lazy='dynamic'))
+    ticketnumber = relationship('TicketNumber', backref=backref('tickets', lazy='dynamic',cascade="all, delete-orphan" ))
     tnumber = Column(Integer, ForeignKey('ticketnumber.id'), nullable = False)
     ttype = Column(String(25))
     tpriority = Column(Integer)
@@ -387,11 +408,13 @@ class Ticket(Base):
        
             session.commit()
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, ticket already defined")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid ticket data")
 
@@ -423,16 +446,19 @@ class Ticket(Base):
             session.add(ticket)
             session.commit()
 
-        except exc.NoResultFound:
+        except exc.NoResultFound as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("No ticket found to update.")
               
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, unable to update ticket")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid ticket data")
 
@@ -450,16 +476,19 @@ class Ticket(Base):
             session.add(ticket)
             session.commit()
 
-        except exc.NoResultFound:
+        except exc.NoResultFound as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("No record found.")
               
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, unable to update ticket modified timestamp")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid timestamp data")
 
@@ -472,10 +501,19 @@ class Ticket(Base):
         ticket = session.query(Ticket).get(pk)
         
         if ticket is not None:
+            tnumber = session.query(TicketNumber).get(ticket.tnumber)
         # Skip if not found
-            session.delete(ticket)
-            session.commit()
+            try:
+                print("Deleting ticketnumber " + str(tnumber))
+               
+                session.delete(ticket)
+                session.delete(tnumber)
+                session.commit()
 
+            except exc.IntegrityError as var:
+               print("Unexpected Integrity Error " +  str(var))
+               session.rollback()
+               raise MCException("Integrity Error, unable to delete Ticket")
         else:
             raise MCException("No Ticket found to delete")
 
@@ -507,13 +545,15 @@ class TicketNumber(Base):
             session.add(tnum)
             session.commit()
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
-            raise MCException("Integrity Error, comment already exists")
+            raise MCException("Integrity Error, TicketNumber already exists")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
-            raise MCException("Data Error, invalid comment data")
+            raise MCException("Data Error, invalid TicketNumber data")
 
         return tnum;
 
@@ -539,7 +579,7 @@ class Comment(Base):
     email = Column(String(60), nullable = True)
     
     ticket_id = Column(Integer, ForeignKey('ticket.id'), nullable = False)
-    ticket = relationship('Ticket', backref=backref('comments', lazy='dynamic'))
+    ticket = relationship('Ticket', backref=backref('comments', lazy='dynamic', cascade="all, delete-orphan"))
 
     user_id = Column(Integer, ForeignKey('user.id'), nullable = False)
     user = relationship('User', backref=backref('comments', lazy='dynamic'))
@@ -581,11 +621,13 @@ class Comment(Base):
             session.commit()
 
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, comment already exists")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid comment data")
 
@@ -613,15 +655,18 @@ class Comment(Base):
             session.add(comment)
             session.commit()
 
-        except exc.NoResultFound:
+        except exc.NoResultFound as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("No record found.") 
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, unable to update Commment")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid comment data")
 
@@ -632,10 +677,15 @@ class Comment(Base):
         comment = session.query(Comment).get(pk)
         
         if comment is not None:
+            try:
         # Skip if not found
-            session.delete(comment)
-            session.commit()
+                session.delete(comment)
+                session.commit()
 
+            except exc.IntegrityError as var:
+               print("Unexpected Integrity Error " +  str(var))
+               session.rollback()
+               raise MCException("Integrity Error, unable to delete Comment")
         else:
             raise MCException("No Comment Found to delete")
 
@@ -733,7 +783,7 @@ class Follower(Base):
     
     user_id = Column(Integer, ForeignKey('user.id'), nullable = False)
     ticket_id = Column(Integer, ForeignKey('ticket.id'), nullable = False)
-    ticket = relationship('Ticket', backref=backref('followers', lazy='dynamic'))
+    ticket = relationship('Ticket', backref=backref('followers', lazy='dynamic', cascade="all, delete-orphan"))
 
     def __repr__(self):
         return '<Follower %r>' % (self.user_id)
@@ -765,11 +815,13 @@ class Follower(Base):
        
             session.commit()
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, Follower already exists")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid Follower data")
 
@@ -781,7 +833,8 @@ class Follower(Base):
     def update(cls, pk, timestamp, modified_timestamp, user_id, ticket_id):
    
         try:
-            follower = session.query(Follower).filter_by(id=pk).one()
+         #   follower = session.query(Follower).filter_by(id=pk).one()
+            follower = session.query(Follower).get(pk)
 
             follower.timestamp = timestamp
             follower.modified_timestamp = modified_timestamp
@@ -791,15 +844,18 @@ class Follower(Base):
             session.add(follower)
             session.commit()
 
-        except exc.NoResultFound:
+        except exc.NoResultFound as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("No record found.") 
 
-        except exc.IntegrityError:
+        except exc.IntegrityError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Integrity Error, unable to update Follower")
 
-        except exc.DataError:
+        except exc.DataError as var:
+            print("Unexpected Exception " +  str(var))
             session.rollback()
             raise MCException("Data Error, invalid follower data")
 
@@ -811,9 +867,14 @@ class Follower(Base):
         
         if follower is not None:
         # Skip if not found
-            session.delete(follower)
-            session.commit()
+            try:
+                session.delete(follower)
+                session.commit()
 
+            except exc.IntegrityError as var:
+               print("Unexpected Integrity Error " +  str(var))
+               session.rollback()
+               raise MCException("Integrity Error, unable to delete Follower")
         else:
             raise MCException("No such Follower")
 

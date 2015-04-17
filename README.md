@@ -175,8 +175,8 @@ Once the application has started, open a browser to the url http://localhost:500
 
 ```
 
-to deactivate run at some point in the future, rather than simply
-closing the terminal window
+to deactivate the virtualenv at some point in the future, rather than simply
+closing the terminal window, run
 
 ```
 (mcare)$ deactivate
@@ -213,6 +213,12 @@ Use a value of the local nic ip address if connecting from a browser and an iPho
 http://192.168.0.10:5000
 
 ##### Cloud Foundry testing
+
+If testing on Cloud Foundry install the Pivotal Cloud Foundry CLI
+following the instructions at this location
+
+[https://console.run.pivotal.io/tools](https://console.run.pivotal.io/tools)
+
 For Cloud Foundry use the following url in the phone, no need to set PYTHON_HOST in the config.py file.
 http://customer-service.23.92.225.219.xip.io
 
