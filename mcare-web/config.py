@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
   '''
 
   # These values are only used if the app is not running in Cloud Foundry
-  PYTHON_HOST= 'bwebster-mbpro'
+  PYTHON_HOST= 'localhost'
   PYTHON_PORT= '5000'
  
 

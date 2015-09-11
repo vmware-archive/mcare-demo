@@ -1,5 +1,5 @@
 
-import os, sys, json
+import os, sys, json, re, socket
 from config import config
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import scoped_session, create_session
@@ -98,18 +98,35 @@ def configure():
 
     # Create Database Engine
 
+    # Check for MySQL Service listener as specified
+    m = re.search('\@(.*?)\/', dburl)
+    if m:
+       found = m.group(1)
+
+       s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+       result = s.connect_ex((found.split(':')[0], int(found.split(':')[1])))
+
+       if result == 0:
+          s.close()
+          print ('Found Listener')
+          isMemoryDb = False;
+       else:
+          print ('MySQL Listener Not Found, switching to in memory db')
+          isMemoryDb = True;
+          dburl="sqlite://"
+
     if isMemoryDb:
        engine = create_engine(dburl, connect_args={'check_same_thread':False}, poolclass=StaticPool)
     else:   
-       try:
+ #     try:
           engine = create_engine(dburl)
-       except ex:
-                  print("Unable to connect to DB at " + dburl + " switching to in Memory DB.")
-                  dburl="sqlite://"
-                  #url="postgresql://postgres:" + sqluser + ":" + sqlpassword + "@" + sqlhost + ":" + sqlport + "/postgres"
-                  # Override config.py with Cloud Foundry DB URI
-               #   appl.config['SQLALCHEMY_DATABASE_URI'] = dburl
-                  isMemoryDb = True
+ #     except ex:
+ #                print("Unable to connect to DB at " + dburl + " switching to in Memory DB.")
+ #                dburl="sqlite://"
+ #                #url="postgresql://postgres:" + sqluser + ":" + sqlpassword + "@" + sqlhost + ":" + sqlport + "/postgres"
+ #                # Override config.py with Cloud Foundry DB URI
+ #             #   appl.config['SQLALCHEMY_DATABASE_URI'] = dburl
+ #                isMemoryDb = True
   
 
     # Create DB Session
@@ -144,7 +161,7 @@ def init_db():
         
         # Load Sample data if using MemoryDb
         if isMemoryDb:
-           loadDb.main()
+           app.loadDb.main()
 
 
 

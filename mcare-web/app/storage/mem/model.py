@@ -66,6 +66,7 @@ class User(object):
      
     @classmethod
     def delete(cls, pk):
+        print('NOT IMPLEMENTED')
         pass
       
 
