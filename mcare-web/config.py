@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
   '''
 
   # These values are only used if the app is not running in Cloud Foundry
-  PYTHON_HOST= 'localhost'
+  PYTHON_HOST= '0.0.0.0'
   PYTHON_PORT= '5000'
  
 
@@ -23,14 +23,14 @@ class DevelopmentConfig(Config):
   DATABASE Configuration
   '''
 
-  # Database for local executions, not in cloud foundry.
+  # Database for local executions, not in cloud foundry, and when not set as an env variable SQLALCHEMY_DATABASE_URI.
   # If an active database is not found at the specified url, an in memory sqlite database will be used.
 
   SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://bob:welcome1@localhost:3306/customer_database'
 
 
   # Database for unit tests which maybe local or remote outside of Cloud Foundry
-  TEST_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://bob:welcome1@locatlhos:3306/customer_database'
+  TEST_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://bob:welcome1@localhost:3306/customer_database'
   # Rest service test endpoint, maybe local or running in cloud foundry, Jenkins passes CF app url using HTTP_API_URI
   TEST_HTTP_API_URI= os.environ.get('HTTP_API_URI') or PYTHON_HOST + ':' + PYTHON_PORT
   # Note when debug=TRUE scheduler may execute tasks twice

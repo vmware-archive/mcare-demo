@@ -52,7 +52,7 @@ def configure():
                #     appl.config['SQLALCHEMY_DATABASE_URI'] = dburl
                     found = True
 
-            # Check for mySql as a Service
+            # Check for mySql as a PCF Service
             if not found:
                   mysqlservices = json.loads(os.environ['VCAP_SERVICES'])['mysql']
                   for service in mysqlservices:
@@ -91,14 +91,19 @@ def configure():
             sys.exit(2) 
 
     else:
-         # Running locally, use config setting.
+         # Running locally, check for env variable, otherwise use config setting.
         
-         dburl = config['development'].SQLALCHEMY_DATABASE_URI
+         if os.getenv('SQLALCHEMY_DATABASE_URI',0) != 0:
+            # Use Env setting
+            dburl = os.getenv('SQLALCHEMY_DATABASE_URI') # Assigned port for app in Cloud Foundry
+         else:
+            dburl = config['development'].SQLALCHEMY_DATABASE_URI
       #   appl.config['SQLALCHEMY_DATABASE_URI'] = dburl
 
     # Create Database Engine
 
     # Check for MySQL Service listener as specified
+    print('Using dburl ' + dburl)
     m = re.search('\@(.*?)\/', dburl)
     if m:
        found = m.group(1)
@@ -111,7 +116,7 @@ def configure():
           print ('Found Listener')
           isMemoryDb = False;
        else:
-          print ('MySQL Listener Not Found, switching to in memory db')
+          print ('MySQL Listener Not Found switching to in memory db')
           isMemoryDb = True;
           dburl="sqlite://"
 

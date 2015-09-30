@@ -1,0 +1,19 @@
+web:
+  build: ./mcare-web
+  ports:
+    - "5000:5000"
+  command: python runApp.py
+  links:
+     - mysql:mysql
+  environment:
+    - SQLALCHEMY_DATABASE_URI=mysql+pymysql://bob:welcome1@mysql:3306/customer_database
+
+mysql:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=welcome1
+    - MYSQL_DATABASE=customer_database
+    - MYSQL_USER=bob
+    - MYSQL_PASSWORD=welcome1
