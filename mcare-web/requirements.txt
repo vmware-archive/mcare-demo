@@ -14,7 +14,7 @@ PyMySQL==0.6.3
 SQLAlchemy==0.9.8
 Tempita==0.5.2
 WTForms==2.0.1
-Werkzeug==0.9.6
+Werkzeug==0.15.3
 decorator==3.4.0
 itsdangerous==0.24
 mimerender==0.5.4
